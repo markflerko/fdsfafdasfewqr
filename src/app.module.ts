@@ -1,19 +1,16 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { CoffeesModule } from './coffees/coffees.module';
 import { CoffeeRatingModule } from './coffee-rating/coffee-rating.module';
-import { ConfigModule } from '@nestjs/config';
-import * as Joi from '@hapi/joi';
+import { CoffeesModule } from './coffees/coffees.module';
+import appConfig from './config/app.config';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      validationSchema: Joi.object({
-        DATABASE_HOST: Joi.required(),
-        DATABASE_PORT: Joi.number().default(5432), //setting is default value if known as passed in and requiring it must be parseble to a number
-      }),
+      load: [appConfig],
     }),
     CoffeesModule,
     TypeOrmModule.forRoot({
