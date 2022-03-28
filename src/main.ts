@@ -17,7 +17,7 @@ async function bootstrap() {
     }),
   );
   // app.useGlobalFilters(new HttpExceptionFilter());
-  app.useGlobalGuards(new ApiKeyGuard());
+  // app.useGlobalGuards(new ApiKeyGuard()); // we dont need it anymore since we have common.module.ts (???)
   await app.listen(3000);
 }
 bootstrap();
